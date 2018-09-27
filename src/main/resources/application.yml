@@ -1,7 +1,7 @@
 server:
   port: 8001
   servlet:
-    context-path: greek
+    context-path: /greek
   
 mybatis:
   config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
