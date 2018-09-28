@@ -6,8 +6,8 @@ server:
 mybatis:
   config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
   type-aliases-package: com.htzw.study.entities    # 所有Entity别名类所在包
-  mapper-locations:
-  - classpath:mybatis/mapper/**/*.xml                       # mapper映射文件
+  mapper-locations: classpath:mybatis/mapper/**/*.xml  # mapper映射文件
+
 
 spring:
    datasource:
@@ -20,6 +20,9 @@ spring:
       min-idle: 5                                           # 数据库连接池的最小维持连接数
       initial-size: 5                                       # 初始化连接数
       max-total: 5                                          # 最大连接数
-      max-wait-millis: 200                                  # 等待连接获取的最大超时时间
+      max-wait-millis: 200                                # 等待连接获取的最大超时时间
+      validation-query: SELECT 1                          #验证连接是否可用，使用的SQL语句
+      test-while-idle: true                               #指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
+      test-on-borrow: false                           #false表示每次从连接池中取出连接时，不需要执行validationQuery = "SELECT 1" 中的SQL进行测试。若配置为true,对性能有非常大的影响，性能会下降7-10倍。所在一定要配置为false.
 
 

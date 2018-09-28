@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htzw.study.dao.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.htzw.study.entities.Project" >
+    <id column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_summary" property="projectSummary" jdbcType="VARCHAR" />
+    <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+    <result column="reporter" property="reporter" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="update_date" property="updateDate" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="projectId" keyColumn="project_id" parameterType="com.htzw.study.entities.Project" >
+    insert into project (project_name, project_summary,
+      project_type, reporter, status, 
+      update_date, remark)
+    values (#{projectName,jdbcType=VARCHAR}, #{projectSummary,jdbcType=VARCHAR},
+      #{projectType,jdbcType=VARCHAR}, #{reporter,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{updateDate,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.htzw.study.entities.Project" >
+    update project
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      project_summary = #{projectSummary,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      reporter = #{reporter,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select project_id, project_name, project_summary, project_type, reporter, status,
+    update_date, remark
+    from project
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select project_id, project_name, project_summary, project_type, reporter, status,
+    update_date, remark
+    from project
+    WHERE  status=1
+  </select>
+</mapper>
