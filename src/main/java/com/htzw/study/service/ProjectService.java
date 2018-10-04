@@ -5,8 +5,11 @@ import com.htzw.study.entities.Project;
 import java.util.List;
 
 /**
- * Created by Administrator on 2018/9/28.
- */
+* @Description:    项目服务接口层
+* @Author:         glj
+* @CreateDate:     2018/10/4
+* @Version:        1.0
+*/
 public interface ProjectService {
     /**
      * 获取所有的项目信息
@@ -27,4 +30,17 @@ public interface ProjectService {
      * @return
      */
     boolean modifyProject(Project project);
+    /**
+     * 添加项目信息
+     * @param project 项目对象
+     * @return
+     */
+    boolean addProject(Project project);
+
+    /**
+     * 根据项目编号获取项目信息
+     * @param projectId 项目编号
+     * @return
+     */
+    Project queryProjectById(Integer projectId);
 }

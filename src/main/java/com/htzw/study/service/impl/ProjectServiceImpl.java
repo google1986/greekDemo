@@ -37,4 +37,19 @@ public class ProjectServiceImpl implements ProjectService{
             return false;
         }
     }
+
+    @Override
+    public boolean addProject(Project project) {
+        int num = projectMapper.insert(project);
+        if (num > 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public Project queryProjectById(Integer projectId) {
+        return projectMapper.selectByPrimaryKey(projectId);
+    }
 }
