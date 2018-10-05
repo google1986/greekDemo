@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- *主函数
- */
+ *greek主函数
+ */greek
 @SpringBootApplication
 public class GreekApplication {
 
