@@ -2,6 +2,7 @@ package com.htzw.study.dao;
 
 import com.htzw.study.entities.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 /**
@@ -47,9 +48,11 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     /**
+     * 注意：使用命名参数方式明确指定封装参数时map的key：@Param("userName")
      * 根据用户名称和密码获取相应的用户对象细腻些
-     * @param user 用户对象
+     * @param userName 用户名称
+     * @param password 密码
      * @return
      */
-    User selectUserByUserNameAndPwd(User user);
+    User selectUserByUserNameAndPwd(@Param("userName") String userName, @Param("password") String password);
 }

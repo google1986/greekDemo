@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.htzw.study.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.htzw.study.entities.User" >
-    <id column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="true_name" property="trueName" jdbcType="VARCHAR" />
-    <result column="role_type" property="roleType" jdbcType="VARCHAR" />
-    <result column="org_id" property="orgId" jdbcType="INTEGER" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="update_date" property="updateDate" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+<mapper namespace="com.htzw.study.dao.UserMapper">
+    <!--
+    if:判断
+    choose：（when，otherwise）：分支选择：带了break的switch-case
+    如果带了id就用id查，如果带了lastName就用lastName查，只会进入其中一个
+    trim：字符串截取（where：封装查询条件；set：封装修改条件）
+    foreach：
+    -->
+
+    <resultMap id="BaseResultMap" type="com.htzw.study.entities.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="true_name" property="trueName" jdbcType="VARCHAR"/>
+        <result column="role_type" property="roleType" jdbcType="VARCHAR"/>
+        <result column="org_id" property="orgId" jdbcType="INTEGER"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="update_date" property="updateDate" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.htzw.study.entities.User" >
+    <insert id="insert" parameterType="com.htzw.study.entities.User">
     insert into user (user_id, user_name, true_name,
       role_type, org_id, password, 
       status, update_date, remark
@@ -26,34 +34,70 @@
       #{status,jdbcType=INTEGER}, #{updateDate,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.htzw.study.entities.User" >
-    update user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      true_name = #{trueName,jdbcType=VARCHAR},
-      role_type = #{roleType,jdbcType=VARCHAR},
-      org_id = #{orgId,jdbcType=INTEGER},
-      password = #{password,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      update_date = #{updateDate,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <update id="updateByPrimaryKey" parameterType="com.htzw.study.entities.User">
+        update user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+            <if test="trueName != null">
+                true_name = #{trueName},
+            </if>
+            <if test="roleType != null">
+                role_type = #{roleType},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
     remark
     from user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+    <select id="selectAll" resultMap="BaseResultMap">
     select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
     remark
     from user
   </select>
-
-  <select id="selectUserByUserNameAndPwd" resultMap="BaseResultMap" parameterType="com.htzw.study.entities.User">
-    select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
-    remark
-    from user
-    WHERE  1=1 AND user_name=#{userName} AND password = #{password}
-  </select>
+    <!---->
+    <select id="selectUserByUserNameAndPwd" resultMap="BaseResultMap">
+        select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
+        remark
+        from user
+        <!--
+        <trim>:字符串截取标签
+        prefix="":前缀：trim标签体中是整个字符串拼串后的结果
+          prefix给拼串后的整个字符串加一个前缀
+        prefixOverrides="":
+          前缀覆盖：去掉整个字符串前面多余的字符
+        suffix="":后缀
+          suffix给拼串后的整个字符串加一个后缀
+        suffixOverrides=""
+          后缀覆盖：去掉整个字符串后面多余的字符
+        -->
+        <trim prefix="where" suffixOverrides="and">
+            <if test="userName!=null &amp;&amp; userName != &quot;&quot;">
+                user_name=#{userName} and
+            </if>
+            <if test="password!=null &amp;&amp; password != &quot;&quot;">
+                password = #{password} and
+            </if>
+        </trim>
+    </select>
 </mapper>

@@ -19,9 +19,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean login(String userName, String password) {
-        User user = new User(userName, password);
-        User currentUser = userMapper.selectUserByUserNameAndPwd(user);
-        if (currentUser != null){
+        User user = userMapper.selectUserByUserNameAndPwd(userName, password);
+        if (user != null){
             return true;
         }else {
             return false;
