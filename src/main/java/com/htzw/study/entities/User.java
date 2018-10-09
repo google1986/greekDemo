@@ -29,4 +29,9 @@ public class User implements Serializable{
         this.userName = userName;
         this.password = password;
     }
+
+    public User(Integer userId, String password) {
+        this.userId = userId;
+        this.password = password;
+    }
 }

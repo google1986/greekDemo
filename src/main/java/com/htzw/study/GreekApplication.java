@@ -3,9 +3,9 @@ package com.htzw.study;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
+/**personalCenter
  *greek主函数
- */greek
+ */
 @SpringBootApplication
 public class GreekApplication {
 

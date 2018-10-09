@@ -1,5 +1,8 @@
 package com.htzw.study.service;
 
+import com.htzw.study.dto.UserPageModel;
+import com.htzw.study.entities.User;
+
 /**
 * @Description:    用户接口层
 * @Author:         glj
@@ -14,4 +17,25 @@ public interface UserService {
      * @return 是否登陆成功
      */
     boolean login(String userName, String password);
+    /**
+     * 根据用户名称和密码获取用户信息
+     * @param userName 用户名称
+     * @param password 密码
+     * @return 用户对象
+     */
+    UserPageModel queryUserByUserNameAndPassword(String userName, String password);
+
+    /**
+     * 根据用户编号获取用户信息
+     * @param userId 用户编号
+     * @return
+     */
+    User queryUserByUserId(Integer userId);
+
+    /**
+     * 更新用户信息
+     * @param user 用户对象
+     * @return
+     */
+    boolean modifyUser(User user);
 }

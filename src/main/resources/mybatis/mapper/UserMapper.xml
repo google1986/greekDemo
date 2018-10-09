@@ -20,6 +20,14 @@
         <result column="update_date" property="updateDate" jdbcType="VARCHAR"/>
         <result column="remark" property="remark" jdbcType="VARCHAR"/>
     </resultMap>
+    <resultMap id="UserPageResultMap" type="com.htzw.study.dto.UserPageModel">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="true_name" property="trueName" jdbcType="VARCHAR"/>
+        <result column="org_id" property="orgId" jdbcType="INTEGER"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="org_name" property="orgName" jdbcType="VARCHAR"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where user_id = #{userId,jdbcType=INTEGER}
@@ -75,11 +83,10 @@
     remark
     from user
   </select>
-    <!---->
-    <select id="selectUserByUserNameAndPwd" resultMap="BaseResultMap">
-        select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
-        remark
-        from user
+    <!--UserPageModel selectUserByUserNameAndPwd(@Param("userName") String userName, @Param("password") String password);-->
+    <select id="selectUserByUserNameAndPwd" resultMap="UserPageResultMap">
+        select u.user_id, u.user_name, u.true_name, o.org_id, u.password, o.org_name
+        from user u ,org o WHERE u.org_id = o.org_id
         <!--
         <trim>:字符串截取标签
         prefix="":前缀：trim标签体中是整个字符串拼串后的结果
@@ -91,7 +98,7 @@
         suffixOverrides=""
           后缀覆盖：去掉整个字符串后面多余的字符
         -->
-        <trim prefix="where" suffixOverrides="and">
+        <trim prefix="and" suffixOverrides="and">
             <if test="userName!=null &amp;&amp; userName != &quot;&quot;">
                 user_name=#{userName} and
             </if>
