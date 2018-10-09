@@ -32,12 +32,12 @@
     delete from user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.htzw.study.entities.User">
-    insert into user (user_id, user_name, true_name,
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id" parameterType="com.htzw.study.entities.User">
+    insert into user (user_name, true_name,
       role_type, org_id, password, 
       status, update_date, remark
       )
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, 
+    values (#{userName,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR},
       #{roleType,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{updateDate,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )

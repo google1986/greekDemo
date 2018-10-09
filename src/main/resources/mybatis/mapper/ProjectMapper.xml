@@ -25,13 +25,29 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.htzw.study.entities.Project" >
     update project
-    set project_name = #{projectName,jdbcType=VARCHAR},
-      project_summary = #{projectSummary,jdbcType=VARCHAR},
-      project_type = #{projectType,jdbcType=VARCHAR},
-      reporter = #{reporter,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      update_date = #{updateDate,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+    <set>
+        <if test="projectName ！=null">
+            project_name = #{projectName,jdbcType=VARCHAR},
+        </if>
+        <if test="projectSummary ！=null">
+            project_summary = #{projectSummary,jdbcType=VARCHAR},
+        </if>
+        <if test="projectType ！=null">
+            project_type = #{projectType,jdbcType=VARCHAR},
+        </if>
+        <if test="reporter ！=null">
+            reporter = #{reporter,jdbcType=VARCHAR},
+        </if>
+        <if test="status ！=null">
+            status = #{status,jdbcType=INTEGER},
+        </if>
+        <if test="updateDate ！=null">
+            update_date = #{updateDate,jdbcType=VARCHAR},
+        </if>
+        <if test="remark ！=null">
+            remark = #{remark,jdbcType=VARCHAR}
+        </if>
+    </set>
     where project_id = #{projectId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
