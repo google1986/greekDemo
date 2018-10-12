@@ -25,6 +25,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = "test",method = RequestMethod.GET)
+    public String test() throws InterruptedException {
+        User user = userService.queryUserByUserId(1);
+        System.out.println(user.getTrueName());
+        System.out.println("=======================================================");
+        System.out.println(user.getOrg().getOrgName());
+        return "test";
+    }
     /**
      * 验证用户登录信息
      * @param userName 用户名称

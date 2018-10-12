@@ -24,6 +24,7 @@ public class User implements Serializable{
     private Integer status;
     private String updateDate;
     private String remark;
+    private Organization org;
 
     public User(String userName, String password) {
         this.userName = userName;

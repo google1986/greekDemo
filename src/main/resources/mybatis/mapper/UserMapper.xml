@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace: 名称空间-->
 <mapper namespace="com.htzw.study.dao.UserMapper">
     <!--
     if:判断
@@ -8,7 +9,6 @@
     trim：字符串截取（where：封装查询条件；set：封装修改条件）
     foreach：
     -->
-
     <resultMap id="BaseResultMap" type="com.htzw.study.entities.User">
         <id column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
@@ -28,20 +28,44 @@
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="org_name" property="orgName" jdbcType="VARCHAR"/>
     </resultMap>
+    <!--
+    使用 association 进行分步查询+延迟加载（按需加载）
+	    1  先按照用户id查询用户信息
+	    2 根据查询用户信息中的org_id的值去部门表查出部门信息
+	    3 部门设置到用户中
+    -->
+    <resultMap id="TestBaseResultMap" type="com.htzw.study.entities.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="true_name" property="trueName" jdbcType="VARCHAR"/>
+        <result column="role_type" property="roleType" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="update_date" property="updateDate" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <!-- association 定义管理对象的封装规则
+           select: 表明当前属性是调用select 指定的方法
+           colum: 指定将哪一列的值传给这个方法
+           流程 ： 使用select 指定的方法（传入column指定的这列参数的值）查出对象
+           并封装给property 指定的属性
+           -->
+        <association property="org" column="org_id" select="com.htzw.study.dao.OrganizationMapper.selectByPrimaryKey"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where user_id = #{userId,jdbcType=INTEGER}
-  </delete>
-    <insert id="insert" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id" parameterType="com.htzw.study.entities.User">
-    insert into user (user_name, true_name,
-      role_type, org_id, password, 
-      status, update_date, remark
-      )
-    values (#{userName,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR},
-      #{roleType,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{updateDate,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
-      )
-  </insert>
+delete from user
+where user_id = #{userId,jdbcType=INTEGER}
+</delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id"
+            parameterType="com.htzw.study.entities.User">
+insert into user (user_name, true_name,
+  role_type, org_id, password,
+  status, update_date, remark
+  )
+values (#{userName,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR},
+  #{roleType,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR},
+  #{status,jdbcType=INTEGER}, #{updateDate,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+  )
+</insert>
     <update id="updateByPrimaryKey" parameterType="com.htzw.study.entities.User">
         update user
         <set>
@@ -72,17 +96,17 @@
         </set>
         where user_id = #{userId,jdbcType=INTEGER}
     </update>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
-    remark
-    from user
-    where user_id = #{userId,jdbcType=INTEGER}
-  </select>
+    <select id="selectByPrimaryKey" resultMap="TestBaseResultMap" parameterType="java.lang.Integer">
+select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
+remark
+from user
+where user_id = #{userId,jdbcType=INTEGER}
+</select>
     <select id="selectAll" resultMap="BaseResultMap">
-    select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
-    remark
-    from user
-  </select>
+select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
+remark
+from user
+</select>
     <!--UserPageModel selectUserByUserNameAndPwd(@Param("userName") String userName, @Param("password") String password);-->
     <select id="selectUserByUserNameAndPwd" resultMap="UserPageResultMap">
         select u.user_id, u.user_name, u.true_name, o.org_id, u.password, o.org_name
