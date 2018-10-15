@@ -35,7 +35,7 @@
 	    2 根据查询用户信息中的org_id的值去部门表查出部门信息
 	    3 部门设置到用户中
     -->
-    <resultMap id="TestBaseResultMap" type="com.htzw.study.entities.User">
+    <resultMap id="UserAssociationResultMap" type="com.htzw.study.entities.User">
         <id column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="true_name" property="trueName" jdbcType="VARCHAR"/>
@@ -97,7 +97,7 @@ values (#{userName,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR},
         </set>
         where user_id = #{userId,jdbcType=INTEGER}
     </update>
-    <select id="selectByPrimaryKey" resultMap="TestBaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="UserAssociationResultMap" parameterType="java.lang.Integer">
 select user_id, user_name, true_name, role_type, org_id, password, status, update_date,
 remark
 from user

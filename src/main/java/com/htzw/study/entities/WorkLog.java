@@ -32,8 +32,14 @@ public class WorkLog implements Serializable{
      * 结束时间
      */
     private String endDate;
-    private Integer projectId;
-    private Integer userId;
+    /**
+     * 关联的项目
+     */
+    private Project project;
+    /**
+     * 关联的用户
+     */
+    private User user;
     /**
      * 状态（1：表示可用、正常；0表示已删除）
      */
