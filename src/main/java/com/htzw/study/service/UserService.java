@@ -1,6 +1,5 @@
 package com.htzw.study.service;
 
-import com.htzw.study.dto.UserPageModel;
 import com.htzw.study.entities.User;
 
 /**
@@ -23,7 +22,7 @@ public interface UserService {
      * @param password 密码
      * @return 用户对象
      */
-    UserPageModel queryUserByUserNameAndPassword(String userName, String password);
+    User queryUserByUserNameAndPassword(String userName, String password);
 
     /**
      * 根据用户编号获取用户信息

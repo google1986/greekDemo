@@ -19,7 +19,6 @@ public class User implements Serializable{
     private String userName;
     private String trueName;
     private String roleType;
-    private Integer orgId;
     private String password;
     private Integer status;
     private String updateDate;

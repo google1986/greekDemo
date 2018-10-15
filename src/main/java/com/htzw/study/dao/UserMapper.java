@@ -1,6 +1,5 @@
 package com.htzw.study.dao;
 
-import com.htzw.study.dto.UserPageModel;
 import com.htzw.study.entities.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -55,5 +54,5 @@ public interface UserMapper {
      * @param password 密码
      * @return
      */
-    UserPageModel selectUserByUserNameAndPwd(@Param("userName") String userName, @Param("password") String password);
+    User selectUserByUserNameAndPwd(@Param("userName") String userName, @Param("password") String password);
 }
