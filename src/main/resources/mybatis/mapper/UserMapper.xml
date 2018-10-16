@@ -13,6 +13,7 @@
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="true_name" property="trueName" jdbcType="VARCHAR"/>
         <result column="role_type" property="roleType" jdbcType="VARCHAR"/>
+        <result column="org_id" property="orgId" jdbcType="INTEGER"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="status" property="status" jdbcType="INTEGER"/>
         <result column="update_date" property="updateDate" jdbcType="VARCHAR"/>
@@ -108,7 +109,7 @@ select user_id, user_name, true_name, role_type, org_id, password, status, updat
 remark
 from user
 </select>
-    <!--UserPageModel selectUserByUserNameAndPwd(@Param("userName") String userName, @Param("password") String password);-->
+    <!--UserDto selectUserByUserNameAndPwd(@Param("userName") String userName, @Param("password") String password);-->
     <select id="selectUserByUserNameAndPwd" resultMap="UserPageResultMap">
         select u.user_id, u.user_name, u.true_name, u.password, o.org_id, o.org_name
         from user u ,org o WHERE u.org_id = o.org_id

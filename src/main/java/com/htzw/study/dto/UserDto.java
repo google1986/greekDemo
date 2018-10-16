@@ -15,7 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserPageModel implements Serializable{
+public class UserDto implements Serializable{
     /**
      * 用户编号
      */
