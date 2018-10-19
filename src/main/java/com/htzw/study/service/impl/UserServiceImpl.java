@@ -1,6 +1,7 @@
 package com.htzw.study.service.impl;
 
 import com.htzw.study.dao.UserMapper;
+import com.htzw.study.dto.UserDto;
 import com.htzw.study.entities.User;
 import com.htzw.study.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean login(String userName, String password) {
-        User user = userMapper.selectUserByUserNameAndPwd(userName, password);
+        UserDto user = userMapper.selectUserByUserNameAndPwd(userName, password);
         if (user != null){
             return true;
         }else {
@@ -28,8 +29,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User queryUserByUserNameAndPassword(String userName, String password) {
-        User model = userMapper.selectUserByUserNameAndPwd(userName, password);
+    public UserDto queryUserByUserNameAndPassword(String userName, String password) {
+        UserDto model = userMapper.selectUserByUserNameAndPwd(userName, password);
         return model;
     }
 

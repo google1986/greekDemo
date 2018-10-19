@@ -19,16 +19,14 @@
         <result column="update_date" property="updateDate" jdbcType="VARCHAR"/>
         <result column="remark" property="remark" jdbcType="VARCHAR"/>
     </resultMap>
-    <!--
-    联合查询：级联属性封装结果集
-    -->
-    <resultMap id="UserPageResultMap" type="com.htzw.study.entities.User">
+
+    <resultMap id="UserPageResultMap" type="com.htzw.study.dto.UserDto">
         <id column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="true_name" property="trueName" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
-        <result column="org_id" property="org.orgId"/>
-        <result column="org_name" property="org.orgName"/>
+        <result column="org_id" property="orgId"/>
+        <result column="org_name" property="orgName"/>
     </resultMap>
     <!--
     使用 association 进行分步查询+延迟加载（按需加载）

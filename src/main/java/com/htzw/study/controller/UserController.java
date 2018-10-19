@@ -1,5 +1,6 @@
 package com.htzw.study.controller;
 
+import com.htzw.study.dto.UserDto;
 import com.htzw.study.entities.User;
 import com.htzw.study.service.UserService;
 import com.htzw.study.utils.TimeUtils;
@@ -32,7 +33,7 @@ public class UserController {
     @RequestMapping(value = "login",method = RequestMethod.GET)
     public Map<String,Object> login(String userName, String password){
         Map<String,Object> map = new HashMap<>(2);
-        User user = userService.queryUserByUserNameAndPassword(userName,password);
+        UserDto user = userService.queryUserByUserNameAndPassword(userName,password);
         if (user == null){
             map.put("success",false);
             return map;
