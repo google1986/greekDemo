@@ -35,11 +35,11 @@ public class WorkLog implements Serializable{
     /**
      * 关联的项目
      */
-    private Project project;
+    private Integer projectId;
     /**
      * 关联的用户
      */
-    private User user;
+    private Integer userId;
     /**
      * 状态（1：表示可用、正常；0表示已删除）
      */
@@ -60,4 +60,8 @@ public class WorkLog implements Serializable{
      * 周
      */
     private String week;
+    /**
+     * 更新时间
+     */
+    private String updateDate;
 }

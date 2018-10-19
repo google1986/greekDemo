@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.htzw.study.dao.WorkLogMapper" >
+  
   <resultMap id="BaseResultMap" type="com.htzw.study.entities.WorkLog" >
     <id column="work_id" property="workId" jdbcType="INTEGER" />
     <result column="work_content" property="workContent" jdbcType="VARCHAR" />
@@ -18,39 +19,90 @@
     delete from work_log
     where work_id = #{workId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.htzw.study.entities.WorkLog" >
-    insert into work_log (work_id, work_content, start_date, 
+  <insert id="insert" useGeneratedKeys="true" keyColumn="work_id" keyProperty="workId" parameterType="com.htzw.study.entities.WorkLog" >
+    insert into work_log (work_content, start_date, 
       end_date, project_id, user_id, 
       status, work_summary, year, 
       month, week)
-    values (#{workId,jdbcType=INTEGER}, #{workContent,jdbcType=VARCHAR}, #{startDate,jdbcType=VARCHAR}, 
+    values (#{workContent,jdbcType=VARCHAR}, #{startDate,jdbcType=VARCHAR}, 
       #{endDate,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{workSummary,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, 
       #{month,jdbcType=VARCHAR}, #{week,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.htzw.study.entities.WorkLog" >
     update work_log
-    set work_content = #{workContent,jdbcType=VARCHAR},
+    <set>
+      <if test="workContent !=null ">
+      work_content = #{workContent,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate !=null ">
       start_date = #{startDate,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate !=null ">
       end_date = #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId !=null ">
       project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="userId !=null ">
       user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status !=null ">
       status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="workSummary !=null ">
       work_summary = #{workSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="year !=null ">
       year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="month !=null ">
       month = #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="week !=null ">
       week = #{week,jdbcType=VARCHAR}
+      </if>
+    </set>
     where work_id = #{workId,jdbcType=INTEGER}
   </update>
+  <sql id="all_column">work_id, work_content, start_date, end_date, project_id, user_id, status,
+    work_summary, year, month, week</sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select work_id, work_content, start_date, end_date, project_id, user_id, status, 
-    work_summary, year, month, week
+    select <include refid="all_column"/>
     from work_log
     where work_id = #{workId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select work_id, work_content, start_date, end_date, project_id, user_id, status, 
-    work_summary, year, month, week
+    select <include refid="all_column"/>
     from work_log
+  </select>
+  <!--List<WorkLog> selectWorkLogByWeek(String week, Integer userId)-->
+  <select id="selectWorkLogByWeek" resultMap="BaseResultMap">
+    select <include refid="all_column"/>
+    from work_log
+    <trim prefix="where" suffixOverrides="and">
+      <if test="week!=null &amp;&amp; week != &quot;&quot;">
+        week=#{week} and
+      </if>
+      <if test="userId!=null">
+        user_id = #{userId} and
+      </if>
+    </trim>
+  </select>
+  <!--List<WorkLog> selectWorkLogByTimes(String startDate, String endDate, Integer userId)-->
+  <select id="selectWorkLogByTimes" resultMap="BaseResultMap">
+    select <include refid="all_column"/>
+    from work_log
+    <where>
+      <if test="startDate!=null &amp;&amp; startDate != &quot;&quot;">
+        end_date = #{startDate} and
+      </if>
+      <if test="endDate!=null &amp;&amp; endDate != &quot;&quot;">
+        start_date = #{endDate} and
+      </if>
+      <if test="userId!=null">
+        user_id = #{userId} and
+      </if>
+    </where>
   </select>
 </mapper>

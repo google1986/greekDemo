@@ -50,15 +50,16 @@
     </set>
     where project_id = #{projectId,jdbcType=INTEGER}
   </update>
+
+    <sql id="all_column">project_id, project_name, project_summary, project_type, reporter, status,
+        update_date, remark</sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select project_id, project_name, project_summary, project_type, reporter, status,
-    update_date, remark
+    select <include refid="all_column"/>
     from project
     where project_id = #{projectId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select project_id, project_name, project_summary, project_type, reporter, status,
-    update_date, remark
+    select <include refid="all_column"/>
     from project
     WHERE  status=1
   </select>

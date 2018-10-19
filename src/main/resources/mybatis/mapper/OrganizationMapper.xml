@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.htzw.study.dao.OrganizationMapper" >
+
   <resultMap id="BaseResultMap" type="com.htzw.study.entities.Organization" >
     <id column="org_id" property="orgId" jdbcType="INTEGER" />
     <result column="org_name" property="orgName" jdbcType="VARCHAR" />
@@ -14,31 +15,46 @@
     delete from org
     where org_id = #{orgId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.htzw.study.entities.Organization" >
-    insert into org (org_id, org_name, parent_org_id, 
+  <insert id="insert" parameterType="com.htzw.study.entities.Organization" useGeneratedKeys="true" keyColumn="org_id" keyProperty="orgId">
+    insert into org (org_name, parent_org_id,
       org_code, leaf, status, 
       update_date)
-    values (#{orgId,jdbcType=INTEGER}, #{orgName,jdbcType=VARCHAR}, #{parentOrgId,jdbcType=INTEGER}, 
+    values (#{orgName,jdbcType=VARCHAR}, #{parentOrgId,jdbcType=INTEGER},
       #{orgCode,jdbcType=VARCHAR}, #{leaf,jdbcType=BIT}, #{status,jdbcType=INTEGER}, 
       #{updateDate,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.htzw.study.entities.Organization" >
     update org
-    set org_name = #{orgName,jdbcType=VARCHAR},
-      parent_org_id = #{parentOrgId,jdbcType=INTEGER},
-      org_code = #{orgCode,jdbcType=VARCHAR},
-      leaf = #{leaf,jdbcType=BIT},
-      status = #{status,jdbcType=INTEGER},
-      update_date = #{updateDate,jdbcType=VARCHAR}
+    <set>
+      <if test="orgName != null">
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="parent_org_id != null">
+        parent_org_id = #{parentOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="leaf != null">
+        leaf = #{leaf,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=VARCHAR}
+      </if>
+    </set>
     where org_id = #{orgId,jdbcType=INTEGER}
   </update>
+  <sql id="all_column">org_id, org_name, parent_org_id, org_code, leaf, status, update_date</sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select org_id, org_name, parent_org_id, org_code, leaf, status, update_date
+    select <include refid="all_column"/>
     from org
     where org_id = #{orgId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select org_id, org_name, parent_org_id, org_code, leaf, status, update_date
+    select <include refid="all_column"/>
     from org
   </select>
 </mapper>
