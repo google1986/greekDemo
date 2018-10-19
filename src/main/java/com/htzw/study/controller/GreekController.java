@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Administrator on 2018/9/27.
  * @author glj
  */
+
 @RestController
 public class GreekController {
     @RequestMapping(value = "hello",method = RequestMethod.GET)
