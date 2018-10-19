@@ -1,0 +1,32 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /greek
+logging:
+  config: ext/conf/logback-spring.xml
+mybatis:
+  # mybatis配置文件所在路径
+  config-location: classpath:mybatis/mybatis.cfg.xml
+  # 所有Entity别名类所在包
+  type-aliases-package: com.htzw.study.entities
+  # mapper映射文件
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+
+spring:
+   datasource:
+   # 当前数据源操作类型
+    name: greek_mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
+    url: jdbc:mysql://10.0.4.88:3306/greek?useUnicode=true&amp;characterEncoding=utf8              # 数据库名称
+    username: root
+    password: 123456
+    dbcp2:
+      min-idle: 5                                           # 数据库连接池的最小维持连接数
+      initial-size: 5                                       # 初始化连接数
+      max-total: 5                                          # 最大连接数
+      max-wait-millis: 200                                # 等待连接获取的最大超时时间
+      validation-query: SELECT 1                          #验证连接是否可用，使用的SQL语句
+      test-while-idle: true                               #指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
+      test-on-borrow: false  #false表示每次从连接池中取出连接时，不需要执行validationQuery = "SELECT 1" 中的SQL进行测试。若配置为true,对性能有非常大的影响，性能会下降7-10倍。所在一定要配置为false
+      test-on-return: false

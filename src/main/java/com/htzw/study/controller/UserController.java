@@ -1,6 +1,6 @@
 package com.htzw.study.controller;
 
-import com.htzw.study.dto.UserPageModel;
+import com.htzw.study.dto.UserDto;
 import com.htzw.study.entities.User;
 import com.htzw.study.service.UserService;
 import com.htzw.study.utils.TimeUtils;
@@ -24,17 +24,16 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
-
     /**
      * 验证用户登录信息
      * @param userName 用户名称
      * @param password 密码
      * @return
      */
-    @RequestMapping(value = "login",method = RequestMethod.POST)
+    @RequestMapping(value = "login",method = RequestMethod.GET)
     public Map<String,Object> login(String userName, String password){
         Map<String,Object> map = new HashMap<>(2);
-        UserPageModel user = userService.queryUserByUserNameAndPassword(userName,password);
+        UserDto user = userService.queryUserByUserNameAndPassword(userName,password);
         if (user == null){
             map.put("success",false);
             return map;

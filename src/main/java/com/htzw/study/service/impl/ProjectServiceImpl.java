@@ -20,7 +20,8 @@ public class ProjectServiceImpl implements ProjectService{
     private ProjectMapper projectMapper;
     @Override
     public List<Project> list() {
-        return projectMapper.selectAll();
+        List<Project> projects = projectMapper.selectAll();
+        return projects;
     }
 
     @Override
