@@ -90,15 +90,16 @@
     </trim>
   </select>
   <!--List<WorkLog> selectWorkLogByTimes(String startDate, String endDate, Integer userId)-->
+  <!--<![CDATA[   ]]> 是什么，这是XML语法。在CDATA内部的所有内容都会被解析器忽略-->
   <select id="selectWorkLogByTimes" resultMap="BaseResultMap">
     select <include refid="all_column"/>
     from work_log
     <where>
       <if test="startDate!=null &amp;&amp; startDate != &quot;&quot;">
-        end_date = #{startDate} and
+        end_date <![CDATA[>=]]> #{startDate} and
       </if>
       <if test="endDate!=null &amp;&amp; endDate != &quot;&quot;">
-        start_date = #{endDate} and
+        start_date <![CDATA[<=]]> #{endDate} and
       </if>
       <if test="userId!=null">
         user_id = #{userId} and
