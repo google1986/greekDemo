@@ -45,7 +45,7 @@
         <result column="remark" property="remark" jdbcType="VARCHAR"/>
         <!-- association 定义管理对象的封装规则
            select: 表明当前属性是调用select 指定的方法
-           colum: 指定将哪一列的值传给这个方法
+           column: 指定将哪一列的值传给这个方法
            流程 ： 使用select 指定的方法（传入column指定的这列参数的值）查出对象
            并封装给property 指定的属性
            -->
