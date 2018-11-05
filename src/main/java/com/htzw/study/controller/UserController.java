@@ -30,7 +30,7 @@ public class UserController {
      * @param password 密码
      * @return
      */
-    @RequestMapping(value = "login",method = RequestMethod.GET)
+    @RequestMapping(value = "login",method = RequestMethod.POST)
     public Map<String,Object> login(String userName, String password){
         Map<String,Object> map = new HashMap<>(2);
         UserDto user = userService.queryUserByUserNameAndPassword(userName,password);
