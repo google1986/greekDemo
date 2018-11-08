@@ -1,6 +1,6 @@
 package com.htzw.study.service.impl;
 
-import com.htzw.study.dao.WorkLogMapper;
+import com.htzw.study.mapper.WorkLogMapper;
 import com.htzw.study.entities.WorkLog;
 import com.htzw.study.service.WorkLogService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.htzw.study.dao.ProjectMapper" >
+<mapper namespace="com.htzw.study.mapper.ProjectMapper" >
   <resultMap id="BaseResultMap" type="com.htzw.study.entities.Project" >
     <id column="project_id" property="projectId" jdbcType="INTEGER" />
     <result column="project_name" property="projectName" jdbcType="VARCHAR" />

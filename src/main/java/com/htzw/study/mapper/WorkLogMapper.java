@@ -1,7 +1,6 @@
-package com.htzw.study.dao;
+package com.htzw.study.mapper;
 
 import com.htzw.study.entities.WorkLog;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 * @CreateDate:     2018/10/19
 * @Version:        1.0
 */
-@Mapper
 public interface WorkLogMapper {
     /**
      * 根据日报编号删除对应的信息

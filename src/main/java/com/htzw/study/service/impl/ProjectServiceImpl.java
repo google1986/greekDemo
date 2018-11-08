@@ -1,7 +1,7 @@
 package com.htzw.study.service.impl;
 
-import com.htzw.study.dao.ProjectMapper;
 import com.htzw.study.entities.Project;
+import com.htzw.study.mapper.ProjectMapper;
 import com.htzw.study.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

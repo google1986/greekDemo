@@ -45,7 +45,7 @@
         </sqlMapGenerator>
 
         <!-- javaClientGenerator:指定mapper接口所在的位置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.htzw.study.dao" targetProject=".\src">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.htzw.study.mapper" targetProject=".\src">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 

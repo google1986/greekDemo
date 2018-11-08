@@ -1,6 +1,6 @@
 package com.htzw.study.service.impl;
 
-import com.htzw.study.dao.UserMapper;
+import com.htzw.study.mapper.UserMapper;
 import com.htzw.study.dto.UserDto;
 import com.htzw.study.entities.User;
 import com.htzw.study.service.UserService;

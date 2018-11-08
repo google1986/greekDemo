@@ -1,8 +1,7 @@
-package com.htzw.study.dao;
+package com.htzw.study.mapper;
 
 import com.htzw.study.dto.UserDto;
 import com.htzw.study.entities.User;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
 * @CreateDate:     2018/10/4
 * @Version:        1.0
 */
-@Mapper
 public interface UserMapper {
     /**
      * 根据用户编号删除相应的用户信息

@@ -1,7 +1,6 @@
-package com.htzw.study.dao;
+package com.htzw.study.mapper;
 
 import com.htzw.study.entities.Project;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 /**
@@ -10,7 +9,6 @@ import java.util.List;
 * @CreateDate:     2018/9/28 10:28
 * @Version:        1.0
 */
-@Mapper
 public interface ProjectMapper {
     /**
      * 根据项目编号删除对应的项目对象信息
