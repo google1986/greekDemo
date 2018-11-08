@@ -50,6 +50,16 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
+    public boolean deleteProject(Project project) {
+        int num = projectMapper.deleteByPrimaryKey(project.getProjectId());
+        if (num > 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
     public Project queryProjectById(Integer projectId) {
         return projectMapper.selectByPrimaryKey(projectId);
     }

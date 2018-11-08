@@ -37,6 +37,7 @@ public interface ProjectService {
      */
     boolean addProject(Project project);
 
+    boolean deleteProject(Project project);
     /**
      * 根据项目编号获取项目信息
      * @param projectId 项目编号
