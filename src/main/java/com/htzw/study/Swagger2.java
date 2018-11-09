@@ -13,7 +13,20 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- *
+ *swagger通过注解表明该接口会生成文档，包括接口名、请求方法、参数、返回信息的等等。
+ @author Administrator
+  * @Api：修饰整个类，描述Controller的作用
+ @ApiOperation：描述一个类的一个方法，或者说一个接口
+ @ApiParam：单个参数描述
+ @ApiModel：用对象来接收参数
+ @ApiProperty：用对象接收参数时，描述对象的一个字段
+ @ApiResponse：HTTP响应其中1个描述
+ @ApiResponses：HTTP响应整体描述
+ @ApiIgnore：使用该注解忽略这个API
+ @ApiError ：发生错误返回的信息
+ @ApiImplicitParam：一个请求参数
+ @ApiImplicitParams：多个请求参数
+
  * @ConditionalOnExpression 为Spring的注解，用户是否实例化本类，
  * 用于是否启用Swagger的判断（生产环境需要屏蔽Swagger）
 * @Description:    Swagger配置类
@@ -23,7 +36,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 */
 @Configuration
 @EnableSwagger2
-@ConditionalOnExpression("${swagger.enable:true}")//生产环境下需要屏蔽Swagger
+/**
+ *生产环境下需要屏蔽Swagger
+ */
+@ConditionalOnExpression("${swagger.enable:true}")
 public class Swagger2  {
     /**
      * api文档实例
@@ -31,12 +47,30 @@ public class Swagger2  {
      */
     @Bean
     public Docket createRestfulApi() {
-        return new Docket(DocumentationType.SWAGGER_2)//文档类型：DocumentationType.SWAGGER_2
-                .apiInfo(apiInfo())//api信息
-                .select()//构建api选择器
-                .apis(RequestHandlerSelectors.basePackage("com.htzw.study.controller"))//api选择器选择api的包
-                .paths(PathSelectors.any())//api选择器选择包路径下任何api显示在文档中
-                .build();//创建文档
+        /**
+         * 文档类型：DocumentationType.SWAGGER_2
+         */
+        return new Docket(DocumentationType.SWAGGER_2)
+                /**
+                 * api信息
+                 */
+                .apiInfo(apiInfo())
+                /**
+                 * 构建api选择器
+                 */
+                .select()
+                /**
+                 * api选择器选择api的包
+                 */
+                .apis(RequestHandlerSelectors.basePackage("com.htzw.study.controller"))
+                /**
+                 * api选择器选择包路径下任何api显示在文档中
+                 */
+                .paths(PathSelectors.any())
+                /**
+                 * 创建文档
+                 */
+                .build();
     }
 
     /**
@@ -47,8 +81,14 @@ public class Swagger2  {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful接口")
                 .description("API描述")
-                .contact(new Contact("glj",null,null))//创建人
-                .version("1.0")//版本号
+                /**
+                 * 创建人
+                 */
+                .contact(new Contact("glj",null,null))
+                /**
+                 * 版本号
+                 */
+                .version("1.0")
                 .build();
     }
 }

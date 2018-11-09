@@ -27,11 +27,6 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-
-    /**
-     * 获取所有的项目信息
-     * @return
-     */
     @ApiOperation(value = "获取所有项目详细信息",notes = "获取所有可用的项目详细信息")
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public Map<String,Object> getList(){
@@ -41,13 +36,8 @@ public class ProjectController {
         return map;
     }
 
-    /**
-     * 根据编号删除相应的项目信息
-     * @param projectId 项目编号
-     * @return
-     */
     @ApiOperation(value = "删除项目信息",notes = "根据项目编号删除对应的信息")
-    @ApiImplicitParam(name = "projectId", value = "项目编号",required = true, paramType = "header", dataType = "Integer")
+    @ApiImplicitParam(name = "projectId", value = "项目编号",required = true, paramType = "header", dataType = "int")
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     public Map<String,Object> deleteProject(@RequestHeader Integer projectId){
         Map<String,Object> map = new HashMap<>(2);
@@ -55,17 +45,14 @@ public class ProjectController {
         if (project == null){
             map.put("success",false);
         }
-//        project.setStatus(0);
-//        project.setUpdateDate(TimeUtils.dateToString(new Date()));
-        map.put("success",projectService.deleteProject(project));
+        project.setStatus(0);
+        project.setUpdateDate(TimeUtils.dateToString(new Date()));
+        map.put("success",projectService.modifyProject(project));
         return map;
     }
 
-    /**
-     * 添加项目对象信息
-     * @param project 项目对象
-     * @return
-     */
+    @ApiOperation(value = "添加项目信息",notes = "添加项目详细信息")
+    @ApiImplicitParam(name = "project",value = "项目实体",required = true,dataType = "Project",paramType = "body")
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public Map<String,Object> addProject(@RequestBody Project project){
         Map<String,Object> map = new HashMap<>(2);
@@ -75,35 +62,23 @@ public class ProjectController {
         map.put("success",projectService.addProject(project));
         return map;
     }
-    /**
-     * 更新项目对象信息
-     * @param project 项目对象
-     * @return
-     */
+
     @ApiOperation(value = "更新项目", notes = "更新项目信息")
     @ApiImplicitParam(name = "project", value = "项目数据", required = true, paramType = "body", dataType = "Project")
     @RequestMapping(value = "modify",method = RequestMethod.POST)
     public Map<String,Object> modifyProject(@RequestBody Project project){
         Map<String,Object> map = new HashMap<>(2);
-        Project currentProject = projectService.getProjectByPrimaryKey(project.getProjectId());
-        if (currentProject == null){
+        if (project == null || project.getProjectId() == null){
             map.put("success",false);
             return map;
         }
-        currentProject.setProjectName(project.getProjectName());
-        currentProject.setProjectSummary(project.getProjectSummary());
-        currentProject.setProjectType(project.getProjectType());
-        map.put("success",projectService.modifyProject(currentProject));
+        project.setUpdateDate(TimeUtils.dateToString(new Date()));
+        map.put("success",projectService.modifyProject(project));
         return map;
     }
 
-    /**
-     * 根据项目编号获取项目对象信息
-     * @param projectId 项目编号
-     * @return
-     */
     @ApiOperation(value = "获取项目信息",notes = "根据项目编号获取项目对象信息")
-    @ApiImplicitParam(name = "projectId", value = "项目编号",required = true, paramType = "query",dataType = "Integer")
+    @ApiImplicitParam(name = "projectId", value = "项目编号",required = true, paramType = "query",dataType = "int")
     @RequestMapping(value = "getProjectById",method = RequestMethod.GET)
     public Map<String,Object> getProjectById(@RequestParam Integer projectId){
         Map<String,Object> map = new HashMap<>(2);
