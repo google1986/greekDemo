@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,19 +35,34 @@ public class UserController {
 
     @ApiOperation(value = "验证用户登录",notes = "验证用户登录信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName", value = "登录用户名",required = true, paramType = "header",dataType = "String"),
-            @ApiImplicitParam(name = "password", value = "密码",required = true, paramType = "header",dataType = "String")
+            @ApiImplicitParam(name = "userName", value = "登录用户名",required = true, paramType = "query",dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "密码",required = true, paramType = "query",dataType = "String")
     })
-    @RequestMapping(value = "login",method = RequestMethod.POST)
-    public Map<String,Object> login(@RequestHeader String userName, @RequestHeader String password){
+    @RequestMapping(value = "login",method = RequestMethod.GET)
+    public Map<String,Object> login(HttpServletRequest request, String userName, String password){
         Map<String,Object> map = new HashMap<>(2);
         UserDto user = userService.queryUserByUserNameAndPassword(userName,password);
         if (user == null){
             map.put("success",false);
             return map;
         }
+        HttpSession session = request.getSession();
+        session.setAttribute("userInfo",user);
         map.put("success",true);
-        map.put("userInfo",user);
+        map.put("userInfo",session.getId());
+        return map;
+    }
+
+    @ApiOperation(value = "退出",notes = "用户注销")
+//    @ApiImplicitParam(name = "userName", value = "登录用户名",required = true, paramType = "header",dataType = "String")
+    @RequestMapping(value = "loginOut",method = RequestMethod.GET)
+    public Map<String,Object> loginOut(HttpServletRequest request){
+        Map<String,Object> map = new HashMap<>(2);
+        HttpSession session = request.getSession();
+        if (session != null){
+            session.setAttribute(session.getId(),null);
+        }
+        map.put("success",true);
         return map;
     }
 
