@@ -80,7 +80,7 @@ public class ProjectController {
     @ApiOperation(value = "获取项目信息",notes = "根据项目编号获取项目对象信息")
     @ApiImplicitParam(name = "projectId", value = "项目编号",required = true, paramType = "query",dataType = "int")
     @RequestMapping(value = "getProjectById",method = RequestMethod.GET)
-    public Map<String,Object> getProjectById(@RequestParam Integer projectId){
+    public Map<String,Object> getProjectById(Integer projectId){
         Map<String,Object> map = new HashMap<>(2);
         map.put("project",projectService.queryProjectById(projectId));
         return map;
