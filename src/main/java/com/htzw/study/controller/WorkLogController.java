@@ -3,11 +3,9 @@ package com.htzw.study.controller;
 import com.htzw.study.entities.WorkLog;
 import com.htzw.study.service.WorkLogService;
 import com.htzw.study.utils.TimeUtils;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -22,13 +20,12 @@ import java.util.Map;
 */
 @RestController
 @RequestMapping(value = "/work")
+@Api(value = "工作日报操作接口",tags = {"工作日报信息操作接口"})
 public class WorkLogController {
     @Autowired
     private WorkLogService workLogService;
-    /**
-     * 获取所有的工作日报信息
-     * @return
-     */
+
+    @ApiOperation(value = "获取所有的工作日报信息",notes = "获取所有的工作日报信息")
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public Map<String,Object> getList(){
         Map<String,Object> map = new HashMap<>(2);
@@ -37,12 +34,11 @@ public class WorkLogController {
         return map;
     }
 
-    /**
-     * 根据用户编号和周数来获取相应的工作日报信息
-     * @param week 周数
-     * @param userId 用户编号
-     * @return
-     */
+    @ApiOperation(value = "获取工作日报信息",notes = "根据用户编号和周数来获取相应的工作日报信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "week", value = "周数",required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "userId", value = "用户编号",required = true, paramType = "query",dataType = "int")
+    })
     @RequestMapping(value = "getWorkByWeek",method = RequestMethod.GET)
     public Map<String,Object> getWorkByWeek(String week, Integer userId){
         Map<String,Object> map = new HashMap<>(2);
@@ -50,13 +46,13 @@ public class WorkLogController {
         map.put("workLogList",res);
         return map;
     }
-    /**
-     * 根据用户编号和周数来获取相应的工作日报信息
-     * @param startDate 开始时间
-     * @param endDate 结束时间
-     * @param userId 用户编号
-     * @return1
-     */
+
+    @ApiOperation(value = "获取符合条件的工作日报信息",notes = "根据用户编号和周数来获取相应的工作日报信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startDate",value = "开始时间",required = true,paramType = "query",dataType ="String"),
+            @ApiImplicitParam(name = "endDate",value = "结束时间",required = true,paramType = "query",dataType ="String"),
+            @ApiImplicitParam(name = "userId",value = "用户编号",required = true,paramType = "query",dataType ="int")
+    })
     @RequestMapping(value = "getWorkByTimes",method = RequestMethod.GET)
     public Map<String,Object> getWorkByTimes(String startDate, String endDate, Integer userId){
         Map<String,Object> map = new HashMap<>(2);
@@ -64,13 +60,11 @@ public class WorkLogController {
         map.put("workLogList",res);
         return map;
     }
-    /**
-     * 根据编号删除相应的工作日报信息
-     * @param workLogId 工作日报编号
-     * @return
-     */
+
+    @ApiOperation(value = "删除工作日报信息",notes = "根据编号删除相应的工作日报信息")
+    @ApiImplicitParam(name = "workLogId",value = "工作日报编号",required = true,paramType = "header",dataType = "int")
     @RequestMapping(value = "delete",method = RequestMethod.POST)
-    public Map<String,Object> deleteWorkLog (Integer workLogId){
+    public Map<String,Object> deleteWorkLog (@RequestHeader Integer workLogId){
         Map<String,Object> map = new HashMap<>(2);
         WorkLog  workLog = workLogService.queryWorkLogById(workLogId);
         if (workLog == null){
@@ -82,11 +76,8 @@ public class WorkLogController {
         return map;
     }
 
-    /**
-     * 添加工作日报对象信息
-     * @param workLog 工作日报对象
-     * @return
-     */
+    @ApiOperation(value = "添加工作日报信息",notes = "添加工作日报信息")
+    @ApiImplicitParam(name = "workLog",value = "工作日报对象",required = true,paramType = "body",dataType ="WorkLog")
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public Map<String,Object> addWorkLog (@RequestBody WorkLog  workLog){
         Map<String,Object> map = new HashMap<>(2);
@@ -95,11 +86,9 @@ public class WorkLogController {
         map.put("success",workLogService.addWorkLog (workLog));
         return map;
     }
-    /**
-     * 更新工作日报对象信息
-     * @param workLog 工作日报对象
-     * @return
-     */
+
+    @ApiOperation(value = "更新工作日报信息",notes = "更新工作日报对象信息")
+    @ApiImplicitParam(name = "workLog",value = "工作日报对象",required = true,paramType = "body",dataType = "WorkLog")
     @RequestMapping(value = "modify",method = RequestMethod.POST)
     public Map<String,Object> modifyWorkLog (@RequestBody WorkLog  workLog){
         Map<String,Object> map = new HashMap<>(2);
@@ -113,11 +102,8 @@ public class WorkLogController {
         return map;
     }
 
-    /**
-     * 根据工作日报编号获取工作日报对象信息
-     * @param workLogId 工作日报编号
-     * @return
-     */
+    @ApiOperation(value = "根据编号获取对应的工作日报信息",notes = "根据工作日报编号获取工作日报对象信息")
+    @ApiImplicitParam(name = "workLogId",value = "工作日报编号",required = true,paramType = "query",dataType = "int")
     @RequestMapping(value = "getWorkLogById",method = RequestMethod.GET)
     public Map<String,Object> getWorkLogById(Integer workLogId){
         Map<String,Object> map = new HashMap<>(2);

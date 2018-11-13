@@ -54,7 +54,6 @@ public class UserController {
     }
 
     @ApiOperation(value = "退出",notes = "用户注销")
-//    @ApiImplicitParam(name = "userName", value = "登录用户名",required = true, paramType = "header",dataType = "String")
     @RequestMapping(value = "loginOut",method = RequestMethod.GET)
     public Map<String,Object> loginOut(HttpServletRequest request){
         Map<String,Object> map = new HashMap<>(2);
