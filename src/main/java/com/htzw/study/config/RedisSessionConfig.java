@@ -1,10 +1,6 @@
 package com.htzw.study.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-import org.springframework.session.web.http.CookieHttpSessionStrategy;
-import org.springframework.session.web.http.DefaultCookieSerializer;
 
 /**
  * 注意：引入了spring-session后，这个server.session.timeout=1800配置将不再起作用， 我们需要写一个如下的配置类：
@@ -12,19 +8,19 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
  * @author Administrator
  */
 @Configuration
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60)
+//@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60)
 public class RedisSessionConfig {
-	@Bean
-	public CookieHttpSessionStrategy cookieHttpSessionStrategy(){
-	    CookieHttpSessionStrategy strategy=new CookieHttpSessionStrategy();
-	    DefaultCookieSerializer cookieSerializer=new DefaultCookieSerializer();
-		//cookies名称
-	    cookieSerializer.setCookieName("MYSESSIONID");
-		//过期时间(秒)
-	    cookieSerializer.setCookieMaxAge(1800);
-	    strategy.setCookieSerializer(cookieSerializer);
-	    return strategy;
-	}
+//	@Bean
+//	public CookieHttpSessionStrategy cookieHttpSessionStrategy(){
+//	    CookieHttpSessionStrategy strategy=new CookieHttpSessionStrategy();
+//	    DefaultCookieSerializer cookieSerializer=new DefaultCookieSerializer();
+//		//cookies名称
+//	    cookieSerializer.setCookieName("MYSESSIONID");
+//		//过期时间(秒)
+//	    cookieSerializer.setCookieMaxAge(1800);
+//	    strategy.setCookieSerializer(cookieSerializer);
+//	    return strategy;
+//	}
 }
 
 	
