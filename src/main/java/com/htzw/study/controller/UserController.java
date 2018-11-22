@@ -38,7 +38,7 @@ public class UserController {
             @ApiImplicitParam(name = "userName", value = "登录用户名",required = true, paramType = "query",dataType = "String"),
             @ApiImplicitParam(name = "password", value = "密码",required = true, paramType = "query",dataType = "String")
     })
-    @RequestMapping(value = "login",method = RequestMethod.GET)
+    @RequestMapping(value = "login",method = RequestMethod.POST)
     public Map<String,Object> login(HttpServletRequest request, String userName, String password){
         Map<String,Object> map = new HashMap<>(2);
         UserDto user = userService.queryUserByUserNameAndPassword(userName,password);
@@ -49,7 +49,7 @@ public class UserController {
         HttpSession session = request.getSession();
         session.setAttribute("userInfo",user);
         map.put("success",true);
-        map.put("userInfo",session.getId());
+        map.put("userInfo",user);
         return map;
     }
 
