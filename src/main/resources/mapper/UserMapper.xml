@@ -8,6 +8,7 @@
     trim：字符串截取（where：封装查询条件；set：封装修改条件）
     foreach：
     -->
+    <!--自定义高级映射规则-->
     <resultMap id="BaseResultMap" type="com.htzw.study.entities.User">
         <id column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
@@ -49,7 +50,8 @@
            流程 ： 使用select 指定的方法（传入column指定的这列参数的值）查出对象
            并封装给property 指定的属性
            -->
-        <association property="org" column="org_id" select="com.htzw.study.mapper.OrganizationMapper.selectByPrimaryKey"/>
+        <association property="org" column="org_id"
+                     select="com.htzw.study.mapper.OrganizationMapper.selectByPrimaryKey"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 delete from user

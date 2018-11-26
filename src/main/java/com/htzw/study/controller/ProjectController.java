@@ -85,4 +85,12 @@ public class ProjectController {
         map.put("project",projectService.queryProjectById(projectId));
         return map;
     }
+    @ApiOperation(value = "批量插入项目信息",notes = "通过存储过程批量插入项目信息")
+    @ApiImplicitParam(name = "projectNum", value = "项目总数",required = true, paramType = "query",dataType = "int")
+    @RequestMapping(value = "batchProject",method = RequestMethod.GET)
+    public Map<String,Object> batchProject(Integer projectNum){
+        Map<String,Object> map = new HashMap<>(2);
+        map.put("project",projectService.addBatchProject(projectNum));
+        return map;
+    }
 }

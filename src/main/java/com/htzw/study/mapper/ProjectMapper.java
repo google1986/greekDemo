@@ -43,4 +43,11 @@ public interface ProjectMapper {
      * @return
      */
     int updateByPrimaryKey(Project record);
+
+    /**
+     * 批量插入工作日志信息，为了验证存储过程的调用
+     * @param countNum 插入的数据总条数
+     * @return
+     */
+    void insertBatchByProcedure(Integer countNum);
 }

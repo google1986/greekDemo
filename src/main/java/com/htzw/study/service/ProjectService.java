@@ -37,6 +37,11 @@ public interface ProjectService {
      */
     boolean addProject(Project project);
 
+    /**
+     * 删除项目信息
+     * @param project 项目对象
+     * @return
+     */
     boolean deleteProject(Project project);
     /**
      * 根据项目编号获取项目信息
@@ -44,4 +49,11 @@ public interface ProjectService {
      * @return
      */
     Project queryProjectById(Integer projectId);
+
+    /**
+     * 批量插入项目信息
+     * @param countNum 项目总条数
+     * @return
+     */
+    boolean addBatchProject(Integer countNum);
 }

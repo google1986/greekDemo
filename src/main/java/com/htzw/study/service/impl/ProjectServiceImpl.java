@@ -18,6 +18,7 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService{
     @Autowired
     private ProjectMapper projectMapper;
+
     @Override
     public List<Project> list() {
         List<Project> projects = projectMapper.selectAll();
@@ -62,5 +63,11 @@ public class ProjectServiceImpl implements ProjectService{
     @Override
     public Project queryProjectById(Integer projectId) {
         return projectMapper.selectByPrimaryKey(projectId);
+    }
+
+    @Override
+    public boolean addBatchProject(Integer countNum) {
+        projectMapper.insertBatchByProcedure(countNum);
+        return true;
     }
 }

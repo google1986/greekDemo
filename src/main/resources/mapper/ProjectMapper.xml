@@ -63,4 +63,10 @@
     from project
     WHERE  status=1
   </select>
+    <!--boolean insertBatchByProcedure(Integer countNum)-->
+    <select id="insertBatchByProcedure" parameterType="java.lang.Integer" statementType="CALLABLE">
+        {
+        CALL insert_batch_project(#{countNum,mode=IN,jdbcType=INTEGER})
+        }
+    </select>
 </mapper>
