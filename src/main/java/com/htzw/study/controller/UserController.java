@@ -82,4 +82,5 @@ public class UserController {
         map.put("success",userService.modifyUser(currentUser));
         return map;
     }
+
 }
