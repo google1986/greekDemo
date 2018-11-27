@@ -28,7 +28,7 @@ import java.util.Map;
 */
 @RestController
 @RequestMapping("/user")
-@Api(value = "用户信息操作接口",tags = {"用户信息操作接口"})
+@Api(value = "用户信息操作接口",tags = {"User Controller"})
 public class UserController {
     @Autowired
     private UserService userService;

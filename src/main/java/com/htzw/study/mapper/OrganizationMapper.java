@@ -1,5 +1,6 @@
 package com.htzw.study.mapper;
 
+import com.htzw.study.dto.OrganizationDto;
 import com.htzw.study.entities.Organization;
 
 import java.util.List;
@@ -37,6 +38,11 @@ public interface OrganizationMapper {
      * @return
      */
     List<Organization> selectAll();
+    /**
+     * 获取所有可用的机构编号和名称
+     * @return
+     */
+    List<OrganizationDto> selectAllOrgIdAndName();
 
     /**
      * 更新机构信息
