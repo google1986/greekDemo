@@ -35,7 +35,7 @@ public class Organization implements Serializable{
      */
     private Boolean leaf;
     /**
-     * 状态（1：表示正产、可用；0：表示已删除、禁用）
+     * 状态（1：表示正常、可用；0：表示已删除、禁用）
      */
     private Integer status;
     /**

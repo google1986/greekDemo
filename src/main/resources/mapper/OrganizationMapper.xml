@@ -11,6 +11,12 @@
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="update_date" property="updateDate" jdbcType="VARCHAR" />
   </resultMap>
+
+  <resultMap id="SimpleResultMap" type="com.htzw.study.dto.OrganizationDto" >
+    <id column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+  </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from org
     where org_id = #{orgId,jdbcType=INTEGER}
@@ -56,5 +62,12 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select <include refid="all_column"/>
     from org
+     WHERE  status = 1
+  </select>
+  <!--List<Organization> selectAllOrgIdAndName()-->
+  <select id="selectAllOrgIdAndName" resultMap="SimpleResultMap" >
+    select org_id, org_name
+    from org
+    WHERE  status = 1
   </select>
 </mapper>

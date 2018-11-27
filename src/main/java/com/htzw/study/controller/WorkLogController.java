@@ -20,7 +20,7 @@ import java.util.Map;
 */
 @RestController
 @RequestMapping(value = "/work")
-@Api(value = "工作日报操作接口",tags = {"工作日报信息操作接口"})
+@Api(value = "工作日报操作接口",tags = {"Work Log Controller"})
 public class WorkLogController {
     @Autowired
     private WorkLogService workLogService;

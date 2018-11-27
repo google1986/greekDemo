@@ -22,7 +22,7 @@ import java.util.Map;
 */
 @RestController
 @RequestMapping("/project")
-@Api(value = "项目信息操作接口",tags = {"项目信息操作接口"})
+@Api(value = "项目信息操作接口",tags = {"Project Controller"})
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
