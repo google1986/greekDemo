@@ -4,8 +4,11 @@ import com.htzw.study.mapper.UserMapper;
 import com.htzw.study.dto.UserDto;
 import com.htzw.study.entities.User;
 import com.htzw.study.service.UserService;
+import com.htzw.study.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
 * @Description:    用户服务实现层
@@ -45,6 +48,17 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean modifyUser(User user) {
         int num = userMapper.updateByPrimaryKey(user);
+        if (num > 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    @Override
+    public boolean addUser(String userName, String trueName, String password, Integer orgId, String registerDate, String remark) {
+        User user = new User(userName,trueName,password,orgId,1, TimeUtils.dateToString(new Date()),remark);
+        user.setRoleType("使用人员");
+        int num = userMapper.insert(user);
         if (num > 0){
             return true;
         }else {

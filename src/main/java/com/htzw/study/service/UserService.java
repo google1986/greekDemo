@@ -38,4 +38,16 @@ public interface UserService {
      * @return
      */
     boolean modifyUser(User user);
+
+    /**
+     * 添加用户信息
+     * @param userName 登录名称
+     * @param trueName 真实名称
+     * @param password 密码
+     * @param orgId 机构编号
+     * @param registerDate 注册日期
+     * @param remark 备注
+     * @return
+     */
+    boolean addUser(String userName, String trueName, String password,Integer orgId,String registerDate,String remark);
 }

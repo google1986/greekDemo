@@ -82,5 +82,19 @@ public class UserController {
         map.put("success",userService.modifyUser(currentUser));
         return map;
     }
-
+    @ApiOperation(value = "注册用户",notes = "注册用户信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userName", value = "登录用户名",required = true, paramType = "query",dataType = "String"),
+            @ApiImplicitParam(name = "trueName", value = "真实名称",required = true, paramType = "query",dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "密码",required = true, paramType = "query",dataType = "String"),
+            @ApiImplicitParam(name = "orgId", value = "机构编号",required = true, paramType = "query",dataType = "int"),
+            @ApiImplicitParam(name = "registerDate", value = "注册日期",required = true, paramType = "query",dataType = "String"),
+            @ApiImplicitParam(name = "remark", value = "备注",required = true, paramType = "query",dataType = "String")
+    })
+    @RequestMapping(value = "register",method = RequestMethod.POST)
+    public Map<String,Object> register(String userName, String trueName, String password,Integer orgId,String registerDate,String remark){
+        Map<String,Object> map = new HashMap<>(2);
+        map.put("success",userService.addUser(userName,trueName,password,orgId,registerDate,remark));
+        return map;
+    }
 }
