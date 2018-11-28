@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,11 +66,11 @@ public class UserController {
 
     @ApiOperation(value = "修改密码",notes = "修改用户密码信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户编号",required = true, paramType = "header", dataType = "int"),
-            @ApiImplicitParam(name = "password", value = "密码",required = true, paramType = "header",dataType = "String")
+            @ApiImplicitParam(name = "userId", value = "用户编号",required = true,  dataType = "int"),
+            @ApiImplicitParam(name = "password", value = "密码",required = true, dataType = "String")
     })
     @RequestMapping(value = "update",method = RequestMethod.POST)
-    public Map<String,Object> modifyUser(@RequestHeader Integer userId, @RequestHeader String password){
+    public Map<String,Object> modifyUser(Integer userId, String password){
         Map<String,Object> map = new HashMap<>(2);
         if (userId == null || password == null){
             map.put("success",false);

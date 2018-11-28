@@ -83,6 +83,7 @@ public class WorkLogController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "startDate",value = "开始时间",required = true,dataType ="String"),
             @ApiImplicitParam(name = "endDate",value = "开始时间",required = true,dataType ="String"),
+            @ApiImplicitParam(name = "workSummary",value = "工作总结、经验教训",required = true,dataType ="String"),
             @ApiImplicitParam(name = "workContent",value = "工作内容",required = true,dataType ="String"),
             @ApiImplicitParam(name = "projectId",value = "项目编号",required = true,dataType ="int"),
             @ApiImplicitParam(name = "userId",value = "用户编号",required = true,dataType ="int"),
