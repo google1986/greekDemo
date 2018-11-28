@@ -1,5 +1,6 @@
 package com.htzw.study.service;
 
+import com.htzw.study.dto.ProjectDto;
 import com.htzw.study.entities.Project;
 
 import java.util.List;
@@ -16,6 +17,12 @@ public interface ProjectService {
      * @return
      */
     List<Project> list();
+
+    /**
+     * 获取所有的项目编号和名称信息
+     * @return
+     */
+    List<ProjectDto> listIdAndName();
 
     /**
      * 根据项目编号获取对应的项目对象

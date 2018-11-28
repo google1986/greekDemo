@@ -64,4 +64,13 @@ public class WorkLog implements Serializable{
      * 更新时间
      */
     private String updateDate;
+
+    public WorkLog(String workContent, String startDate, String endDate, Integer projectId, Integer userId, String workSummary) {
+        this.workContent = workContent;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.projectId = projectId;
+        this.userId = userId;
+        this.workSummary = workSummary;
+    }
 }

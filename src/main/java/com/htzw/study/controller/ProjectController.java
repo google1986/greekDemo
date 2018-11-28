@@ -1,5 +1,6 @@
 package com.htzw.study.controller;
 
+import com.htzw.study.dto.ProjectDto;
 import com.htzw.study.entities.Project;
 import com.htzw.study.service.ProjectService;
 import com.htzw.study.utils.TimeUtils;
@@ -32,9 +33,28 @@ public class ProjectController {
     public Map<String,Object> getList(){
         Map<String,Object> map = new HashMap<>(2);
         List<Project> res = projectService.list();
-        map.put("projectList",res);
+        if (res != null && !res.isEmpty()){
+            map.put("success",true);
+            map.put("projectList",res);
+        }else {
+            map.put("success",false);
+        }
         return map;
     }
+    @ApiOperation(value = "获取所有项目详细信息",notes = "获取所有可用的项目编号和名称信息")
+    @RequestMapping(value = "listIdAndName",method = RequestMethod.GET)
+    public Map<String,Object> getProjectIdAndProjectNameList(){
+        Map<String,Object> map = new HashMap<>(2);
+        List<ProjectDto> res = projectService.listIdAndName();
+        if (res != null && !res.isEmpty()){
+            map.put("success",true);
+            map.put("projectList",res);
+        }else {
+            map.put("success",false);
+        }
+        return map;
+    }
+
 
     @ApiOperation(value = "删除项目信息",notes = "根据项目编号删除对应的信息")
     @ApiImplicitParam(name = "projectId", value = "项目编号",required = true, paramType = "header", dataType = "int")

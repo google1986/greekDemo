@@ -3,7 +3,10 @@ package com.htzw.study.controller;
 import com.htzw.study.entities.WorkLog;
 import com.htzw.study.service.WorkLogService;
 import com.htzw.study.utils.TimeUtils;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,11 +80,28 @@ public class WorkLogController {
     }
 
     @ApiOperation(value = "添加工作日报信息",notes = "添加工作日报信息")
-    @ApiImplicitParam(name = "workLog",value = "工作日报对象",required = true,paramType = "body",dataType ="WorkLog")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startDate",value = "开始时间",required = true,dataType ="String"),
+            @ApiImplicitParam(name = "endDate",value = "开始时间",required = true,dataType ="String"),
+            @ApiImplicitParam(name = "workContent",value = "工作内容",required = true,dataType ="String"),
+            @ApiImplicitParam(name = "projectId",value = "项目编号",required = true,dataType ="int"),
+            @ApiImplicitParam(name = "userId",value = "用户编号",required = true,dataType ="int"),
+            @ApiImplicitParam(name = "workSummary",value = "工作总结",required = true,dataType ="String")
+    })
     @RequestMapping(value = "add",method = RequestMethod.POST)
-    public Map<String,Object> addWorkLog (@RequestBody WorkLog  workLog){
+    public Map<String,Object> addWorkLog ( String startDate, String endDate, String workContent, Integer projectId, Integer userId, String workSummary){
         Map<String,Object> map = new HashMap<>(2);
+        if (projectId == null || userId ==null){
+            map.put("success",false);
+            return map;
+        }
+        WorkLog workLog = new WorkLog(workContent,startDate,endDate,projectId,userId,workSummary);
         workLog.setStatus(1);
+       String[] times = startDate.split("-");
+        if (times.length == 3){
+            workLog.setYear(times[0]);
+            workLog.setMonth(times[1]);
+        }
         workLog.setUpdateDate(TimeUtils.dateToString(new Date()));
         map.put("success",workLogService.addWorkLog (workLog));
         return map;

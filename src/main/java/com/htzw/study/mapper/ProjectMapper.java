@@ -1,5 +1,6 @@
 package com.htzw.study.mapper;
 
+import com.htzw.study.dto.ProjectDto;
 import com.htzw.study.entities.Project;
 
 import java.util.List;
@@ -36,6 +37,11 @@ public interface ProjectMapper {
      * @return
      */
     List<Project> selectAll();
+    /**
+     * 获取所有的项目编号和名称信息
+     * @return
+     */
+    List<ProjectDto> selectAllProjectIdAndName();
 
     /**
      * 更新项目信息

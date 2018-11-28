@@ -11,6 +11,12 @@
     <result column="update_date" property="updateDate" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
+
+    <resultMap id="SimpleResultMap" type="com.htzw.study.dto.ProjectDto" >
+        <id column="project_id" property="projectId" jdbcType="INTEGER" />
+        <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from project
     where project_id = #{projectId,jdbcType=INTEGER}
@@ -63,6 +69,11 @@
     from project
     WHERE  status=1
   </select>
+    <select id="selectAllProjectIdAndName" resultMap="SimpleResultMap" >
+        select project_id, project_name
+        from project
+        WHERE  status=1
+    </select>
     <!--boolean insertBatchByProcedure(Integer countNum)-->
     <select id="insertBatchByProcedure" parameterType="java.lang.Integer" statementType="CALLABLE">
         {

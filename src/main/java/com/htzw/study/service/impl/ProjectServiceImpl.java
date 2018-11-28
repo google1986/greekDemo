@@ -1,5 +1,6 @@
 package com.htzw.study.service.impl;
 
+import com.htzw.study.dto.ProjectDto;
 import com.htzw.study.entities.Project;
 import com.htzw.study.mapper.ProjectMapper;
 import com.htzw.study.service.ProjectService;
@@ -23,6 +24,11 @@ public class ProjectServiceImpl implements ProjectService{
     public List<Project> list() {
         List<Project> projects = projectMapper.selectAll();
         return projects;
+    }
+
+    @Override
+    public List<ProjectDto> listIdAndName() {
+        return projectMapper.selectAllProjectIdAndName();
     }
 
     @Override
