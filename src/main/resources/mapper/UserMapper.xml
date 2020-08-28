@@ -109,6 +109,22 @@ select user_id, user_name, true_name, role_type, org_id, password, status, updat
 remark
 from user
 </select>
+    <select id="getEmpChoose" resultType="com.htzw.bean.Employee">
+        select * from employee
+        <where>
+            <choose>
+                <when test="id != null">
+                    id=#{id}
+                </when>
+                <when test="lastName != null and !&quot;&quot;.equals(lastName)">
+                last_name =#{lastName}
+                 </when>
+                 <otherwise>
+                     1=1
+                 </otherwise>
+            </choose>
+        </where>
+    </select>
     <!--UserDto selectUserByUserNameAndPwd(@Param("userName") String userName, @Param("password") String password);-->
     <select id="selectUserByUserNameAndPwd" resultMap="UserPageResultMap">
         select u.user_id, u.user_name, u.true_name, u.password, o.org_id, o.org_name

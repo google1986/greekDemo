@@ -15,7 +15,8 @@ public class DruidConfig {
 
     @Bean
     public ServletRegistrationBean servletRegistration() {
-        ServletRegistrationBean servletRegistration = new ServletRegistrationBean(new StatViewServlet());        //添加初始化参数：initParams
+        //添加初始化参数：initParams
+        ServletRegistrationBean servletRegistration = new ServletRegistrationBean(new StatViewServlet());
         servletRegistration.addUrlMappings("/druid/*");
         //白名单
         servletRegistration.addInitParameter("allow", "127.0.0.1");

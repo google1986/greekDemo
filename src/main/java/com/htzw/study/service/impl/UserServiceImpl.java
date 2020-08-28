@@ -24,17 +24,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean login(String userName, String password) {
         UserDto user = userMapper.selectUserByUserNameAndPwd(userName, password);
-        if (user != null){
-            return true;
-        }else {
-            return false;
-        }
+        return user != null;
     }
 
     @Override
     public UserDto queryUserByUserNameAndPassword(String userName, String password) {
-        UserDto model = userMapper.selectUserByUserNameAndPwd(userName, password);
-        return model;
+        return userMapper.selectUserByUserNameAndPwd(userName, password);
     }
 
     @Override
@@ -48,21 +43,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean modifyUser(User user) {
         int num = userMapper.updateByPrimaryKey(user);
-        if (num > 0){
-            return true;
-        }else {
-            return false;
-        }
+        return num > 0;
     }
     @Override
     public boolean addUser(String userName, String trueName, String password, Integer orgId, String registerDate, String remark) {
         User user = new User(userName,trueName,password,orgId,1, TimeUtils.dateToString(new Date()),remark);
         user.setRoleType("使用人员");
         int num = userMapper.insert(user);
-        if (num > 0){
-            return true;
-        }else {
-            return false;
-        }
+        return num > 0;
     }
 }

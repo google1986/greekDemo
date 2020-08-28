@@ -22,8 +22,7 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override
     public List<Project> list() {
-        List<Project> projects = projectMapper.selectAll();
-        return projects;
+        return projectMapper.selectAll();
     }
 
     @Override
@@ -39,31 +38,19 @@ public class ProjectServiceImpl implements ProjectService{
     @Override
     public boolean modifyProject(Project project) {
         int num = projectMapper.updateByPrimaryKey(project);
-        if (num > 0){
-            return true;
-        }else {
-            return false;
-        }
+        return num > 0;
     }
 
     @Override
     public boolean addProject(Project project) {
         int num = projectMapper.insert(project);
-        if (num > 0){
-            return true;
-        }else {
-            return false;
-        }
+        return num > 0;
     }
 
     @Override
     public boolean deleteProject(Project project) {
         int num = projectMapper.deleteByPrimaryKey(project.getProjectId());
-        if (num > 0){
-            return true;
-        }else {
-            return false;
-        }
+        return num > 0;
     }
 
     @Override

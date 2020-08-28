@@ -26,13 +26,13 @@ public class WorkLogServiceImpl implements WorkLogService{
     @Override
     public boolean modifyWorkLog(WorkLog workLog) {
         int num = workLogMapper.updateByPrimaryKey(workLog);
-        return (num > 0) ? true : false;
+        return num > 0;
     }
 
     @Override
     public boolean addWorkLog(WorkLog workLog) {
         int num = workLogMapper.insert(workLog);
-        return (num > 0) ? true : false;
+        return num > 0;
     }
 
     @Override
